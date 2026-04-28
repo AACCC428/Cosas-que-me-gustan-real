@@ -169,9 +169,69 @@ window.addEventListener('load', function() {
   </div>
 </div>
 
+<!-- Jumpscare -->
+<div id="jumpscare" class="jumpscare-container" style="display: none;">
+  <div class="jumpscare-content">
+    <div class="jumpscare-face">😱</div>
+    <p class="jumpscare-text">¡¡¡SORPRESA!!!</p>
+  </div>
+</div>
+
 </ul>
   
 
+<script>
+// Jumpscare: Probabilidad 1/1000 cada segundo
+function initJumpscare() {
+  setInterval(function() {
+    // Generar número aleatorio entre 0 y 1
+    const random = Math.random();
+    
+    // Si es menor a 0.001 (probabilidad 1/1000), activar jumpscare
+    if (random < 0.001) {
+      triggerJumpscare();
+    }
+  }, 1000); // Cada 1000ms = 1 segundo
+}
+
+function triggerJumpscare() {
+  const jumpscare = document.getElementById('jumpscare');
+  
+  // Mostrar jumpscare
+  jumpscare.style.display = 'flex';
+  
+  // Reproducir sonido de susto (opcional)
+  playScareSound();
+  
+  // Ocultar después de 500ms
+  setTimeout(function() {
+    jumpscare.style.display = 'none';
+  }, 500);
+}
+
+function playScareSound() {
+  // Crear un sonido simple usando Web Audio API
+  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  const oscillator = audioContext.createOscillator();
+  const gainNode = audioContext.createGain();
+  
+  oscillator.connect(gainNode);
+  gainNode.connect(audioContext.destination);
+  
+  // Sonido desagradable
+  oscillator.frequency.value = 800;
+  gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+  gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+  
+  oscillator.start(audioContext.currentTime);
+  oscillator.stop(audioContext.currentTime + 0.1);
+}
+
+// Iniciar cuando carga la página
+window.addEventListener('load', function() {
+  initJumpscare();
+});
+</script>
 
 </body>
 

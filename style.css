@@ -359,3 +359,74 @@ a, button {
   background: midnightblue;
   color: #ffffff;
 }
+
+/* Estilos para el Jumpscare */
+.jumpscare-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: jumpscare-flash 0.5s ease-out;
+}
+
+@keyframes jumpscare-flash {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.jumpscare-content {
+  text-align: center;
+  animation: pulse 0.5s ease-in-out;
+}
+
+.jumpscare-face {
+  font-size: 150px;
+  margin-bottom: 20px;
+  animation: bounce 0.3s ease-in-out infinite;
+}
+
+.jumpscare-text {
+  color: #ffffff;
+  font-size: 48px;
+  font-weight: bold;
+  margin: 0;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+  animation: shake 0.3s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+}
